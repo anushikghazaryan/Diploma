@@ -949,18 +949,18 @@
 		switch (this.currentStep) {
 			case 0:
 				document.getElementById('roster-sidebar').setAttribute('class', 'highlight');
-				document.getElementById('step1').setAttribute('class', 'current-step');
+				// document.getElementById('step1').setAttribute('class', 'current-step');
 				this.currentStep++;
 				break;
 			case 1:
 				document.getElementById('roster-sidebar').removeAttribute('class');
-				document.getElementById('step1').removeAttribute('class');
+				// document.getElementById('step1').removeAttribute('class');
 				humanGrid.setAttribute('class', humanGrid.getAttribute('class') + ' highlight');
-				document.getElementById('step2').setAttribute('class', 'current-step');
+				// document.getElementById('step2').setAttribute('class', 'current-step');
 				this.currentStep++;
 				break;
 			case 2:
-				document.getElementById('step2').removeAttribute('class');
+				// document.getElementById('step2').removeAttribute('class');
 				var humanClasses = humanGrid.getAttribute('class');
 				humanClasses = humanClasses.replace(' highlight', '');
 				humanGrid.setAttribute('class', humanClasses);
@@ -968,19 +968,19 @@
 				break;
 			case 3:
 				computerGrid.setAttribute('class', computerGrid.getAttribute('class') + ' highlight');
-				document.getElementById('step3').setAttribute('class', 'current-step');
+				// document.getElementById('step3').setAttribute('class', 'current-step');
 				this.currentStep++;
 				break;
 			case 4:
 				var computerClasses = computerGrid.getAttribute('class');
-				document.getElementById('step3').removeAttribute('class');
+				// document.getElementById('step3').removeAttribute('class');
 				computerClasses = computerClasses.replace(' highlight', '');
 				computerGrid.setAttribute('class', computerClasses);
-				document.getElementById('step4').setAttribute('class', 'current-step');
+				// document.getElementById('step4').setAttribute('class', 'current-step');
 				this.currentStep++;
 				break;
 			case 5:
-				document.getElementById('step4').removeAttribute('class');
+				// document.getElementById('step4').removeAttribute('class');
 				this.currentStep = 6;
 				this.showTutorial = false;
 				localStorage.setItem('showTutorial', false);
