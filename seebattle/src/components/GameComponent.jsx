@@ -269,12 +269,13 @@ class BattlesComponent extends Component {
 		};
 		// Click handler for Restart Game button
 		Game.prototype.restartGame = function(e) {
-			// arguments.callee
-			e.target.removeEventListener(e.type);
-			var self = e.target.self;
-			document.getElementById('restart-sidebar').setAttribute('class', 'hidden');
-			self.resetFogOfWar();
-			self.init();
+			window.location.reload();
+			// // arguments.callee
+			// e.target.removeEventListener(e.type);
+			// var self = e.target.self;
+			// document.getElementById('restart-sidebar').setAttribute('class', 'hidden');
+			// self.resetFogOfWar();
+			// self.init();
 		};
 		// Debugging function used to place all ships and just start
 		Game.prototype.placeRandomly = function(e){
@@ -911,6 +912,7 @@ class BattlesComponent extends Component {
 			this.initProbs();
 			this.updateProbs();
 		}
+
 		AI.PROB_WEIGHT = 5000; // arbitrarily big number
 		// how much weight to give to the opening book's high probability cells
 		AI.OPEN_HIGH_MIN = 20;
@@ -1120,6 +1122,7 @@ class BattlesComponent extends Component {
 		
 		// Start the game
 		new Game(10);
+
 		function transitionEndEventName() {
 			var i,
 				undefined,
@@ -1157,7 +1160,7 @@ class BattlesComponent extends Component {
 		</div><div id="roster-sidebar">
 			<h2>Place Your Ships</h2>
 			<ul className="fleet-roster" id="fleet-roster">
-				<li id="1.1">1 երկարության</li>
+				{/* <li id="1.1">1 երկարության</li>
 				<li id="1.2">1 երկարության</li>
 				<li id="1.3">1 երկարության</li>
 				<li id="1.4">1 երկարության</li>
@@ -1166,17 +1169,31 @@ class BattlesComponent extends Component {
 				<li id="2.3">2 երկարության</li>
 				<li id="3.1">3 երկարության</li>
 				<li id="3.2">3 երկարության</li>
-				<li id="4.1">4 երկարության</li>
+				<li id="4.1">4 երկարության</li> */}
+				<li id="1.1" ></li>
+				<li id="1.2" ></li>
+				<li id="1.3" ></li>
+				<li id="1.4" ></li>
+				<li id="2.1" ></li>
+				<li id="2.2" ></li>
+				<li id="2.3" ></li>
+				<li id="3.1" > </li>
+				<li id="3.2" > </li>
+				<li id="4.1" >  </li>
 			</ul>
 			<button id="rotate-button" data-direction="0">Rotate Ship</button>
 			<button id="start-game" className="hidden">Start Game</button>
 			<button id="place-randomly" className="hidden">Place Randomly and Start</button>
-		</div><div className="grid-container">
-			<h2>Your Fleet</h2>
-			<div className="grid human-player"><span className="no-js">Please enable JavaScript to play this game</span></div>
-		</div><div className="grid-container">
-			<h2>Enemy Fleet</h2>
-			<div className="grid computer-player"><span className="no-js">Please enable JavaScript to play this game</span></div>
+		</div>
+		<div className="flex-box-contenier"> 
+			<div className="grid-container">
+				<h2>Your Fleet</h2>
+				<div className="grid human-player"><span className="no-js">Please enable JavaScript to play this game</span></div>
+			</div>
+			<div className="grid-container">
+				<h2>Enemy Fleet</h2>
+				<div className="grid computer-player"><span className="no-js">Please enable JavaScript to play this game</span></div>
+			</div>
 		</div>
 	</div>
 	

@@ -90,7 +90,7 @@ button {
 	position: relative;
 }
 	#roster-sidebar, #stats-sidebar, #restart-sidebar {
-		width: 150px;
+		width: 188px;
 		padding: 20px;
 		margin: 0;
 		background-color: #EEEEEE;
@@ -125,6 +125,12 @@ button {
 }
 	.fleet-roster li {
 		margin: 0.5em 0;
+		user-select: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		color: #FFFFFF;
+		font-size: 13px;
 	}
 		.fleet-roster li:hover {
 			color: #aaa;
@@ -153,11 +159,12 @@ button {
 	}
 
 .grid-container {
-	width: 430px;
+	width: 470px;
 	display: inline-block;
+	margin-top: 26px;
 }
 .grid-container h2 {
-	width: 430px;
+	width: 470px;
 	display: inline-block;
 }
 
@@ -165,8 +172,8 @@ button {
 	position: relative;
 	vertical-align: top;
 	padding: 5px;
-	height: 420px;
-	width: 420px;
+    height: 435px;
+    width: 465px;
 	background-color: #25567B;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -248,12 +255,47 @@ button {
 	font-weight: bold;
 }
 
+.flex-box-contenier{
+	display: flex;
+}
+
+.fleet-roster li:first-child,
+.fleet-roster li:nth-child(2),
+.fleet-roster li:nth-child(3),
+.fleet-roster li:nth-child(4){
+	width: 40px;
+	height: 40px;
+	background: gray;
+}
+
+.fleet-roster li:nth-child(5),
+.fleet-roster li:nth-child(6),
+.fleet-roster li:nth-child(7){
+	width: 80px;
+	height: 40px;
+	background: gray;
+}
+.fleet-roster li:nth-child(8),
+.fleet-roster li:nth-child(9){
+	width: 120x;
+	height: 40px;
+	background: gray;
+}
+.fleet-roster li:nth-child(10){
+	width: 160px;
+	height: 40px;
+	background: gray;
+}
+
 @media(max-width: 1300px) {
 	.container {
 		width: 440px;
 	}
 	.grid-container:last-child {
 		margin-left: 0;
+	}
+	.flex-box-contenier{
+		flex-wrap: wrap;
 	}
 }
 
