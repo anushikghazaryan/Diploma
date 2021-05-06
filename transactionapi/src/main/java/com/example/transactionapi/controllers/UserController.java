@@ -42,7 +42,7 @@ public class UserController{
     public ResponseEntity<User> findByID(Integer id) {
         return new ResponseEntity<>(userRepository.findById(id).get(), HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
     public ResponseEntity<String> save(@RequestBody User user) {
         User search = userRepository.findByEmail(user.getEmail());
