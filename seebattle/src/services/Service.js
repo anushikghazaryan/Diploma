@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const USER_URL = "http://localhost:9090/api/v1/users/allusers";
 const BATTLE_URL = "http://localhost:9090/api/v1/allbattles";
+const USER_INFO_URL = "http://localhost:9090/api/v1/userinfo";
 
 class Service{
     getAllUsers(){
@@ -21,7 +22,16 @@ class Service{
             'Authorization': `Bearer ${token}`
           }
         });
-  }
+    }
+    getUserInfo(){
+      const token = localStorage.getItem('jwtToken');
+      return axios.get(USER_INFO_URL, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });      
+    }
 }
 
 export default new Service()
