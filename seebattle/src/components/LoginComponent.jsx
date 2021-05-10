@@ -10,6 +10,9 @@ class Login extends Component {
     gohome = () => {
         this.props.history.replace("/");
     };
+    goregister = () => {
+        this.props.history.replace("/register");
+    };
 
     initialState = {
         email:'', password:'', error:''
@@ -71,6 +74,9 @@ class Login extends Component {
                             <button className="btn btn-primary" size="sm" type="button" variant="success" onClick={this.validateUser}
                                 disabled={this.state.email.length === 0 || this.state.password.length === 0}>
                                 Login
+                            </button>
+                            <button className="btn btn-primary" size="sm" type="button" variant="success" onClick={this.goregister}>
+                                Register
                             </button>
                             </form>
                     </div>

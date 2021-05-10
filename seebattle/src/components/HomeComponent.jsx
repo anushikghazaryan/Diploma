@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ListUserComponent from './ListUserComponent';
 import { withRouter } from 'react-router-dom';
-import RegisterConponent from './RegisterConponent';
 import BattlesComponent from './BattlesComponent';
 import GameComponent from './GameComponent';
+import MultiGameComponent from './MultiGameComponent';
 
 class HomeComponent extends Component {
   constructor(props) {
@@ -56,6 +56,9 @@ class HomeComponent extends Component {
               </Route>
               <Route exact path="/game">
                 <GameComponent />
+              </Route>
+              <Route exact path="/multigame">
+                <MultiGameComponent />
               </Route>
             </Switch>
           </div>

@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
@@ -27,7 +28,11 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+//    @OneToOne(mappedBy = "user")
+//    private UserInfo userInfo;
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -60,6 +65,8 @@ public class User {
         this.name = name;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     public Role getRole() {
         return role;
     }

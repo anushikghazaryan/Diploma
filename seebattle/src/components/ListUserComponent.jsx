@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Service from '../services/Service';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import InfoPopup from './InfoPopupComponent';
 
 class ListUserComponent extends Component {
     constructor(props){
         super(props);
         this.state={
-            users: []
+            users: [],
+            showPopup:false,userInfo:''
         }
     }
     componentDidMount(){
@@ -14,6 +16,16 @@ class ListUserComponent extends Component {
             this.setState({users: res.data.content});
         });
     }
+    
+    goPlay = () => {
+        this.props.history.replace("/multigame");
+    };
+    // updatePopup = (popup) => {this.setState({ showPopup: popup})}
+    // showPopupInfo(id){
+    //     let info = '<h1>Start game</h1><br><a>Play</a>';
+    //     this.setState({userInfo: info});
+    //     this.setState({showPopup: true});
+    // }
     render() {
         return (
             <div className="container text-center">
@@ -37,12 +49,15 @@ class ListUserComponent extends Component {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role.name}</td>
-                                    <td><button className="btn btn-outline-primary">Play</button></td>
+                                    <td><a onClick={() => this.goPlay()} className="btn btn-outline-primary">Play</a></td>
                                 </tr>)
                             }
                         </tbody>
                     </table>
                 </div>
+                    <InfoPopup trigger={this.state.showPopup} setTrigger={this.updatePopup}>
+                        {this.state.userInfo}
+                    </InfoPopup>
             </div>
         );
     }

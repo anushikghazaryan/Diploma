@@ -25,13 +25,10 @@ public class UserController{
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    public UserController(UserRepository userRepository, RoleRepository roleRepository,JwtTokenProvider jwtTokenProvider) {
+    public UserController(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping("/allusers")
@@ -42,7 +39,6 @@ public class UserController{
     public ResponseEntity<User> findByID(Integer id) {
         return new ResponseEntity<>(userRepository.findById(id).get(), HttpStatus.OK);
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
     public ResponseEntity<String> save(@RequestBody User user) {
         User search = userRepository.findByEmail(user.getEmail());
