@@ -38,6 +38,7 @@ class ListUserComponent extends Component {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Rating</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -49,6 +50,7 @@ class ListUserComponent extends Component {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role.name}</td>
+                                    <td>{user.rating}</td>
                                     <td><a onClick={() => this.goPlay()} className="btn btn-outline-primary">Play</a></td>
                                 </tr>)
                             }

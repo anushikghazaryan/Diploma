@@ -7,6 +7,10 @@ class Register extends Component {
         super(props);
         this.state = this.initialState;
     }
+    // my code 
+    gohome = () => {
+        this.props.history.replace("/");
+    };
 
     initialState = {
         email: '', name: '', password: '', confirm: '', error: ''
@@ -25,14 +29,21 @@ class Register extends Component {
                 email: this.state.email,
                 password: this.state.password
             });
-            const token = localStorage.getItem('jwtToken');
+           // const token = localStorage.getItem('jwtToken');
             axios.post("http://localhost:9090/api/v1/users/register", credentials, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                //    'Authorization': `Bearer ${token}`
                 }
             }).then(response => {
-                this.setState({ "error": response.data.message });
+                // this.setState({ "error": response.data.message });
+                // my code 
+                let data = response.data;
+                console.log(data.token);
+                localStorage.setItem('jwtToken', data.token);
+                localStorage.setItem('uid', data.id);
+                localStorage.setItem('role', data.role);
+                this.gohome();
             }).catch(error => {
                 this.resetRegisterForm();
                 this.setState({ "error": "Error!" });
@@ -47,7 +58,7 @@ class Register extends Component {
     };
 
     isEmail(val) {
-        let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let regEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!regEmail.test(val)) {
             return 'Invalid Email';
         }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Service from '../services/Service';
 import { Link, withRouter } from "react-router-dom";
 import './styles.css';
+import axios from 'axios';
 
 
 class BattlesComponent extends Component {
@@ -15,7 +16,7 @@ class BattlesComponent extends Component {
 		Service.getAllBattles().then((res) => {
 			this.setState({ battles: res.data.content });
 		});
-		this.mainGame()
+		this.mainGame();
 	}
 
 	mainGame = () => {
@@ -57,6 +58,15 @@ class BattlesComponent extends Component {
 		Game.prototype.checkIfWon = function () {
 			if (this.computerFleet.allShipsSunk()) {
 				alert('Congratulations, you win!');
+				console.log(this.shotsTaken);
+				const token = localStorage.getItem('jwtToken');
+				const userId = localStorage.getItem('uid');
+				axios.post("http://localhost:9090/api/v1/users/rating", userId, {
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					}
+				})
 				Game.gameOver = true;
 				this.showRestartSidebar();
 			} else if (this.humanFleet.allShipsSunk()) {
@@ -82,19 +92,26 @@ class BattlesComponent extends Component {
 				return null;
 			} else if (targetGrid.isMiss(x, y)) {
 				return null;
-			} else if (targetGrid.isUndamagedShip(x, y)) {
-				// update the board/grid
-				targetGrid.updateCell(x, y, 'hit', targetPlayer);
-				// IMPORTANT: This function needs to be called _after_ updating the cell to a 'hit',
-				// because it overrides the CSS class to 'sunk' if we find that the ship was sunk
-				targetFleet.findShipByCoords(x, y).incrementDamage(); // increase the damage
-				this.checkIfWon();
-				return CONST.TYPE_HIT;
-			} else {
-				targetGrid.updateCell(x, y, 'miss', targetPlayer);
-				this.checkIfWon();
-				return CONST.TYPE_MISS;
-			}
+			} else
+				if (targetGrid.isUndamagedShip(x, y)) {
+					// update the board/grid
+					targetGrid.updateCell(x, y, 'hit', targetPlayer);
+					// IMPORTANT: This function needs to be called _after_ updating the cell to a 'hit',
+					// because it overrides the CSS class to 'sunk' if we find that the ship was sunk
+					targetFleet.findShipByCoords(x, y).incrementDamage(); // increase the damage
+					if (targetPlayer === CONST.HUMAN_PLAYER) {
+						this.shotsTaken++;
+					}
+					this.checkIfWon();
+					return CONST.TYPE_HIT;
+				} else {
+					targetGrid.updateCell(x, y, 'miss', targetPlayer);
+					if (targetPlayer === CONST.HUMAN_PLAYER) {
+						this.shotsTaken++;
+					}
+					this.checkIfWon();
+					return CONST.TYPE_MISS;
+				}
 		};
 		// Creates click event listeners on each one of the 100 grid cells
 		Game.prototype.shootListener = function (e) {
@@ -1111,6 +1128,69 @@ class BattlesComponent extends Component {
 			if (result === CONST.TYPE_HIT) {
 				var humanShip = this.findHumanShip(maxProbCoords.x, maxProbCoords.y);
 				if (humanShip.isSunk()) {
+					// add here
+					// var coords = humanShip.getAllShipCells();
+					// console.log(coords);
+					// for (var i = 0; i < coords.length; i++) {
+					// 	if (humanShip.direction === Ship.DIRECTION_VERTICAL){	
+					// 		if (this.checkPos(coords[i].x, coords[i].y + 1)) {
+					// 			this.probGrid[coords[i].x][coords[i].y + 1] = 0;
+					// 		}
+					// 		if (this.checkPos(coords[i].x, coords[i].y - 1)) {
+					// 			this.probGrid[coords[i].x][coords[i].y - 1] = 0;
+					// 		}
+
+					// 	} else {
+					// 		if (this.checkPos(coords[i].x + 1, coords[i].y)) {
+					// 			this.probGrid[coords[i].x + 1][coords[i].y] = 0;
+					// 		}
+					// 		if (this.checkPos(coords[i].x - 1, coords[i].y)) {
+					// 			this.probGrid[coords[i].x - 1][coords[i].y] = 0;
+					// 		}
+					// 	}
+					// }
+					// console.log(this.probGrid);
+					// if (this.direction === Ship.DIRECTION_VERTICAL) {
+					// 	if (this.checkPosition(x - 1, y - 1)) {
+					// 		this.playerGrid.cells[x - 1][y - 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x - 1, y)) {
+					// 		this.playerGrid.cells[x - 1][y] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x - 1, y + 1)) {
+					// 		this.playerGrid.cells[x - 1][y + 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x + this.shipLength, y - 1)) {
+					// 		this.playerGrid.cells[x + this.shipLength][y - 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x + this.shipLength, y)) {
+					// 		this.playerGrid.cells[x + this.shipLength][y] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x + this.shipLength, y + 1)) {
+					// 		this.playerGrid.cells[x + this.shipLength][y + 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+
+					// } else {
+					// 	if (this.checkPosition(x + 1, y - 1)) {
+					// 		this.playerGrid.cells[x + 1][y - 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x - 1, y - 1)) {
+					// 		this.playerGrid.cells[x - 1][y - 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x, y - 1)) {
+					// 		this.playerGrid.cells[x][y - 1] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x + 1, y + this.shipLength)) {
+					// 		this.playerGrid.cells[x + 1][y + this.shipLength] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x - 1, y + this.shipLength)) {
+					// 		this.playerGrid.cells[x - 1][y + this.shipLength] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// 	if (this.checkPosition(x, y + this.shipLength)) {
+					// 		this.playerGrid.cells[x][y + this.shipLength] = CONST.TYPE_NOT_ALLOWED;
+					// 	}
+					// }
+
 					// Remove any ships from the roster that have been sunk
 					var shipTypes = [];
 					for (var k = 0; k < this.virtualFleet.fleetRoster.length; k++) {
@@ -1124,10 +1204,21 @@ class BattlesComponent extends Component {
 					for (var _i = 0; _i < shipCells.length; _i++) {
 						this.virtualGrid.cells[shipCells[_i].x][shipCells[_i].y] = CONST.TYPE_SUNK;
 					}
+
+					// add here
+
+
 				}
 			}
 			// Update probability grid after each shot
 			this.updateProbs();
+		};
+		AI.prototype.checkPos = function (x, y) {
+			let triger = false;
+			if (x < 10 && y < 10 && x >= 0 && y >= 0) {
+				triger = true;
+			}
+			return triger
 		};
 		// Update the probability grid
 		AI.prototype.updateProbs = function () {
@@ -1182,6 +1273,38 @@ class BattlesComponent extends Component {
 					}
 				}
 			}
+			for (var x = 0; x < Game.size; x++) {
+				for (var y = 0; y < Game.size; y++) {
+					if (this.virtualGrid.cells[x][y] === CONST.TYPE_SUNK) {
+						console.log("this sell is sunk   " + x + "   " + y);
+						if (this.checkPos(x - 1, y - 1)) {
+							this.probGrid[x - 1][y - 1] = 0;
+						}
+						if (this.checkPos(x - 1, y)) {
+							this.probGrid[x - 1][y] = 0;
+						}
+						if (this.checkPos(x - 1, y + 1)) {
+							this.probGrid[x - 1][y + 1] = 0;
+						}
+						if (this.checkPos(x, y - 1)) {
+							this.probGrid[x][y - 1] = 0;
+						}
+						if (this.checkPos(x, y + 1)) {
+							this.probGrid[x][y + 1] = 0;
+						}
+						if (this.checkPos(x + 1, y - 1)) {
+							this.probGrid[x + 1][y - 1] = 0;
+						}
+						if (this.checkPos(x + 1, y)) {
+							this.probGrid[x + 1][y] = 0;
+						}
+						if (this.checkPos(x + 1, y + 1)) {
+							this.probGrid[x + 1][y + 1] = 0;
+						}
+					}
+				}
+			}
+			console.log(this.probGrid);
 		};
 		// Initializes the probability grid for targeting
 		AI.prototype.initProbs = function () {

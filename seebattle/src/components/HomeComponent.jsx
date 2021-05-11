@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import BattlesComponent from './BattlesComponent';
 import GameComponent from './GameComponent';
 import MultiGameComponent from './MultiGameComponent';
+import UserInfoComponent from './UserInfoComponent';
 
 class HomeComponent extends Component {
   constructor(props) {
@@ -13,10 +14,11 @@ class HomeComponent extends Component {
     if (localStorage.getItem('jwtToken') === null) {
       this.gologin();
     }
-    if (localStorage.getItem('role') === 'none') {
-      this.goChangePassword();
-    }
+    // if (localStorage.getItem('role') === 'none') {
+    //   this.goChangePassword();
+    // }
   }
+  
   initialState = {
     role: localStorage.getItem('role'), id: localStorage.getItem('uid')
   };
@@ -42,6 +44,7 @@ class HomeComponent extends Component {
                 <Link to={"/"} className="p-2 text-dark">Battles</Link>
                 <Link to={"/users"} className="p-2 text-dark">Users</Link>
                 <Link to={"/game"} className="p-2 text-dark">Game</Link>
+                {/* <Link to={"/userInfo"} className="p-2 text-dark">My Page</Link> */}
               </nav>
               <div style={{ flex: 1 }}></div>
               {<Link to={"/logout"} onClick={this.logoutClick} className="btn btn-outline-primary nav-link">Sign Out</Link>}
@@ -60,6 +63,9 @@ class HomeComponent extends Component {
               <Route exact path="/multigame">
                 <MultiGameComponent />
               </Route>
+              {/* <Route exact path="/userInfo">
+                <UserInfoComponent />
+              </Route> */}
             </Switch>
           </div>
         </Router>

@@ -75,6 +75,8 @@ class Login extends Component {
                                 disabled={this.state.email.length === 0 || this.state.password.length === 0}>
                                 Login
                             </button>
+                            <div></div>
+                            <label htmlFor="">Don't have an account? Create it!</label>
                             <button className="btn btn-primary" size="sm" type="button" variant="success" onClick={this.goregister}>
                                 Register
                             </button>

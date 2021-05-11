@@ -54,17 +54,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().disable();
         http.httpBasic().disable();
         http.formLogin().disable();
-//        http.formLogin();
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/v1/auth/authenticate").permitAll()
+                .antMatchers("/api/v1/auth/authenticate", "/api/v1/users/register" ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-//        http.authenticationProvider();
-//        http.csrf().disable();
     }
 
 }

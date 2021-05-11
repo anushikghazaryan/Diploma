@@ -3,7 +3,6 @@ com\example\transactionapi\TransactionapiApplication.class
 com\example\transactionapi\models\Role.class
 com\example\transactionapi\models\User.class
 com\example\transactionapi\models\LocalDateTimeConverter.class
-com\example\transactionapi\repository\UserInfoRepository.class
 com\example\transactionapi\config\JwtTokenProvider.class
 com\example\transactionapi\models\Game.class
 com\example\transactionapi\config\JwtTokenFilter.class
@@ -16,6 +15,5 @@ com\example\transactionapi\services\user\CustomUserDetails.class
 com\example\transactionapi\repository\UserRepository.class
 com\example\transactionapi\models\Battle.class
 com\example\transactionapi\config\WebSecurityConfig.class
-com\example\transactionapi\models\UserInfo.class
 com\example\transactionapi\repository\RoleRepository.class
 com\example\transactionapi\controllers\AuthorizationResource.class

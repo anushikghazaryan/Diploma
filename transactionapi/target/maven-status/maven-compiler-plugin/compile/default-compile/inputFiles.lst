@@ -5,7 +5,6 @@ C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\exampl
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\controllers\UserController.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\config\JwtTokenProvider.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\models\LocalDateTimeConverter.java
-C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\repository\UserInfoRepository.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\config\JwtTokenFilter.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\models\Battle.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\services\user\CustomUserDetailsService.java
@@ -13,7 +12,6 @@ C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\exampl
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\repository\BattleRepository.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\TransactionapiApplication.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\models\User.java
-C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\models\UserInfo.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\config\WebSecurityConfig.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\models\AuthRequest.java
 C:\Users\HP_USER\Desktop\diploma\Diploma\transactionapi\src\main\java\com\example\transactionapi\controllers\AuthorizationResource.java

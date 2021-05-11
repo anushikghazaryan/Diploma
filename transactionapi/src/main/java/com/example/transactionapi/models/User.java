@@ -23,6 +23,7 @@ public class User {
     @Size(min = 8, max = 20, message = "Password should be between 2 to 20")
     private String password;
     private String name;
+    private Integer rating;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -73,5 +74,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }
