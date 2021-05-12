@@ -19,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -50,12 +52,10 @@ public class UserController {
 //    }
 
     @PostMapping("/rating")
-    public HttpStatus increse(@RequestBody Integer id) {
-        User user = userRepository.findById(id).get();
-        user.setRating(user.getRating() + 100);
-//        userRepository.delete(user);
+    public HttpStatus increse(@RequestBody int[] data) {
+        User user = userRepository.findById(data[0]).get();
+        user.setRating(user.getRating() + data[1]);
         userRepository.save(user);
-
         return HttpStatus.OK;
     }
 
@@ -73,7 +73,7 @@ public class UserController {
                 user.setRating(0);
                 userRepository.save(user);
 
-                // my code
+
                 try {
                     authenticationManager.authenticate(
                             new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())

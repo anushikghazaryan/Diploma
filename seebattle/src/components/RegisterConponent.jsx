@@ -29,17 +29,12 @@ class Register extends Component {
                 email: this.state.email,
                 password: this.state.password
             });
-           // const token = localStorage.getItem('jwtToken');
             axios.post("http://localhost:9090/api/v1/users/register", credentials, {
                 headers: {
                     'Content-Type': 'application/json',
-                //    'Authorization': `Bearer ${token}`
                 }
             }).then(response => {
-                // this.setState({ "error": response.data.message });
-                // my code 
                 let data = response.data;
-                console.log(data.token);
                 localStorage.setItem('jwtToken', data.token);
                 localStorage.setItem('uid', data.id);
                 localStorage.setItem('role', data.role);

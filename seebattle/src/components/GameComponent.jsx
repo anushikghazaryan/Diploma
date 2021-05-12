@@ -59,9 +59,12 @@ class BattlesComponent extends Component {
 			if (this.computerFleet.allShipsSunk()) {
 				alert('Congratulations, you win!');
 				console.log(this.shotsTaken);
+
 				const token = localStorage.getItem('jwtToken');
 				const userId = localStorage.getItem('uid');
-				axios.post("http://localhost:9090/api/v1/users/rating", userId, {
+				const userPoint = (100 - this.shotsTaken - 20) * 23;
+				const sendData = [userId, userPoint];
+				axios.post("http://localhost:9090/api/v1/users/rating", sendData, {
 					headers: {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${token}`
@@ -567,7 +570,7 @@ class BattlesComponent extends Component {
 			}
 		};
 		Fleet.prototype.placeShipsRandomlyComp = function () {
-			switch (Math.floor(3 * Math.random())) {
+			switch (Math.floor(4 * Math.random())) {
 				case 0:
 					console.log("case 0");
 					var unusedShips = ['unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused'];
@@ -588,22 +591,24 @@ class BattlesComponent extends Component {
 						var randomDirection = Math.floor(2 * Math.random());
 						// console.log(randomDirection + "dir");
 						if (randomDirection === 1) {
-							ySub = this.fleetRoster[shipIndex].getAllShipCells().length;
+							ySub = this.fleetRoster[shipIndex].maxDamage;
+							console.log(" in cond")
 						}
-						// console.log(ySub + "sub");
+						console.log(ySub + "  sub");
 						// console.log(this.fleetRoster[shipIndex]);
 						var isPlaced = false;
 						for (var x = 0; x < 10; x++) {
 							if (!isPlaced) {
 								for (var y = 0; y < 5; y++) {
 									if (!isPlaced) {
-										if (y + ySub < 5) {
-											ySub = 0;
-										}
-										if (this.fleetRoster[shipIndex].isLegal(x, y, randomDirection)) {
+										// if (y + ySub < 5) {
+										// 	ySub = 0;
+										// }
+										// console.log(ySub + "  after if   " + y);
+										if (this.fleetRoster[shipIndex].isLegal(x, y, randomDirection) && (y + ySub < 5)) {
 											// console.log(x + " x" + y + " y");
 											// console.log("is legal")
-											this.fleetRoster[shipIndex].create(x, (y - ySub), randomDirection, false);
+											this.fleetRoster[shipIndex].create(x, (y), randomDirection, false);
 											unusedShips[shipIndex] = 'used';
 											availableShipsCount--;
 											isPlaced = true;
@@ -617,6 +622,49 @@ class BattlesComponent extends Component {
 					break;
 				case 1:
 					console.log("case 1");
+					var unusedShips = ['unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused'];
+					var availableShipsCount = 10;
+					var shipIndex;
+					var ySub;
+
+					while (availableShipsCount > 0) {
+						// console.log(availableShipsCount + "count ship");
+						shipIndex = Math.floor(10 * Math.random());
+						// console.log(shipIndex + " shipIndex");
+						ySub = 0;
+						while (unusedShips[shipIndex] == 'used') {
+							shipIndex = Math.floor(10 * Math.random());
+							// console.log(shipIndex + " shipIndex in if cond");
+						}
+						// console.log(shipIndex + " shipIndex after cond");
+						var randomDirection = Math.floor(2 * Math.random());
+						// console.log(randomDirection + "dir");
+						if (randomDirection === 1) {
+							ySub = this.fleetRoster[shipIndex].maxDamage;
+							console.log(" in cond")
+						}
+						console.log(ySub + "  sub");
+						// console.log(this.fleetRoster[shipIndex]);
+						var isPlaced = false;
+						for (var x = 0; x < 10; x++) {
+							if (!isPlaced) {
+								for (var y = 5; y < 10; y++) {
+									if (!isPlaced) {
+										if (this.fleetRoster[shipIndex].isLegal(x, y, randomDirection) && (y + ySub < 10)) {
+											this.fleetRoster[shipIndex].create(x, (y), randomDirection, false);
+											unusedShips[shipIndex] = 'used';
+											availableShipsCount--;
+											isPlaced = true;
+										}
+									}
+								}
+							}
+						}
+					}
+					console.log("done");
+					break;
+				case 2:
+					console.log("case 2");
 					// in the hole grid
 					var shipCoords;
 					for (var i = 0; i < this.fleetRoster.length; i++) {
@@ -637,14 +685,16 @@ class BattlesComponent extends Component {
 					}
 					console.log("done");
 					break;
-				case 2:
-					console.log("case 2");
+				case 3:
+					console.log("case 3");
 					var unusedShips = ['unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused', 'unused'];
 					var availableShipsCount = 10;
 					var shipIndex;
 					var ySub;
 
-					while (availableShipsCount > 4) {
+					var randomCount = Math.floor(7 * Math.random());
+
+					while (availableShipsCount > 4 + randomCount) {
 						// console.log(availableShipsCount + "count ship");
 						shipIndex = Math.floor(6 * Math.random() + 4);
 						// console.log(shipIndex + " shipIndex");
@@ -680,6 +730,58 @@ class BattlesComponent extends Component {
 
 								if (!isPlaced) {
 									for (var x = 0; x < 10; x++) {
+										if (!isPlaced) {
+											if (this.fleetRoster[shipIndex].isLegal(x, y, randomDirection)) {
+												// console.log(x + " x" + y + " y");
+												// console.log("is legal")
+												this.fleetRoster[shipIndex].create(x, (y), randomDirection, false);
+												unusedShips[shipIndex] = 'used';
+												availableShipsCount--;
+
+												isPlaced = true;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					while (availableShipsCount > 4) {
+						// console.log(availableShipsCount + "count ship");
+						shipIndex = Math.floor(6 * Math.random() + 4);
+						// console.log(shipIndex + " shipIndex");
+						ySub = 0;
+						while (unusedShips[shipIndex] == 'used') {
+							shipIndex = Math.floor(6 * Math.random() + 4);
+							// console.log(shipIndex + " shipIndex in if cond");
+						}
+						var randomDirection = Math.floor(2 * Math.random());
+						// console.log(randomDirection + " dir");
+						if (randomDirection === 1) {
+							var isPlaced = false;
+							for (var x = 0; x < 10; x += 9) {
+								if (!isPlaced) {
+									for (var y = 9; y >= 0 ; y--) {
+										if (!isPlaced) {
+											if (this.fleetRoster[shipIndex].isLegal(x, y, randomDirection)) {
+												// console.log(x + " x" + y + " y");
+												// console.log("is legal")
+												this.fleetRoster[shipIndex].create(x, y, randomDirection, false);
+												unusedShips[shipIndex] = 'used';
+												availableShipsCount--;
+												isPlaced = true;
+											}
+										}
+									}
+								}
+							}
+						}
+						else {
+							var isPlaced = false;
+							for (var y = 0; y < 10; y += 9) {
+
+								if (!isPlaced) {
+									for (var x = 9; x >= 0; x--) {
 										if (!isPlaced) {
 											if (this.fleetRoster[shipIndex].isLegal(x, y, randomDirection)) {
 												// console.log(x + " x" + y + " y");

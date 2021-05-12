@@ -158,8 +158,13 @@ button {
 	display: inline-block;
 }
 .grid-container h2 {
-	width: 430px;
-	display: inline-block;
+	
+    width: 470px;
+    margin-top: 54px;
+    height: 118px;
+    display: inline-block;
+	/* width: 430px;
+	display: inline-block; */
 }
 
 .grid {
