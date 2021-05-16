@@ -24,8 +24,8 @@ class BattlesComponent extends Component {
                             <tr>
                                 <th>User ID</th>
                                 <th>Name</th>
-                                <th>Sender</th>
-                                <th>Receiver</th>
+                                {/* <th>Sender</th>
+                                <th>Receiver</th> */}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -35,8 +35,8 @@ class BattlesComponent extends Component {
                                 <tr key={battle.id}>
                                     <td>{battle.id}</td>
                                     <td>{battle.name}</td>
-                                    <td>{battle.senderid}</td>
-                                    <td>{battle.receiverid}</td>
+                                    {/* <td>{battle.senderid}</td>
+                                    <td>{battle.receiverid}</td> */}
                                     {battle.status===0?<td><button className="btn btn-outline-primary">Apply</button><button className="btn btn-outline-primary">Refuse</button></td>:<td>Started</td>}
                                 </tr>)
                             }
