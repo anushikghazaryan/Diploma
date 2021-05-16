@@ -4,19 +4,19 @@ import { withRouter } from "react-router-dom";
 import InfoPopup from './InfoPopupComponent';
 
 class ListUserComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             users: [],
-            showPopup:false,userInfo:''
+            showPopup: false, userInfo: ''
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         Service.getAllUsers().then((res) => {
-            this.setState({users: res.data.content});
+            this.setState({ users: res.data.content });
         });
     }
-    
+
     goPlay = () => {
         this.props.history.replace("/multigame");
     };
@@ -37,7 +37,7 @@ class ListUserComponent extends Component {
                                 <th>User ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Role</th>
+                                {/* <th>Role</th> */}
                                 <th>Rating</th>
                                 <th>Action</th>
                             </tr>
@@ -45,21 +45,23 @@ class ListUserComponent extends Component {
                         <tbody>
                             {
                                 this.state.users.map(user =>
-                                <tr key={user.id}>
-                                    <td>{user.id}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.email}</td>
-                                    <td>{user.role.name}</td>
-                                    <td>{user.rating}</td>
-                                    <td><a onClick={() => this.goPlay()} className="btn btn-outline-primary">Play</a></td>
-                                </tr>)
+                                    <tr key={user.id}>
+                                        <td>{user.id}</td>
+                                        <td>{user.name}</td>
+                                        <td>{user.email}</td>
+                                        {/* <td>{user.role.name}</td> */}
+                                        <td>{user.rating}</td>
+                                    {user.id != localStorage.getItem('uid') && 
+                                            <td><a onClick={() => this.goPlay()} className="btn btn-outline-primary">Play</a></td>
+                                        }
+                                    </tr>)
                             }
                         </tbody>
                     </table>
                 </div>
-                    <InfoPopup trigger={this.state.showPopup} setTrigger={this.updatePopup}>
-                        {this.state.userInfo}
-                    </InfoPopup>
+                <InfoPopup trigger={this.state.showPopup} setTrigger={this.updatePopup}>
+                    {this.state.userInfo}
+                </InfoPopup>
             </div>
         );
     }

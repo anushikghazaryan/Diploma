@@ -276,14 +276,6 @@ class BattlesComponent extends Component {
 		Game.prototype.restartGame = function (e) {
 			window.location.reload();
 		};
-		// // Debugging function used to place all ships and just start
-		// Game.prototype.placeRandomly = function (e) {
-		// 	e.target.removeEventListener(e.type, arguments.callee);
-		// 	e.target.self.humanFleet.placeShipsRandomly();
-		// 	e.target.self.readyToPlay = true;
-		// 	document.getElementById('roster-sidebar').setAttribute('class', 'hidden');
-		// 	this.setAttribute('class', 'hidden');
-		// };
 		// Ends placing the current ship
 		Game.prototype.endPlacing = function (shipType) {
 			document.getElementById(shipType).setAttribute('class', 'placed');
@@ -1230,68 +1222,7 @@ class BattlesComponent extends Component {
 			if (result === CONST.TYPE_HIT) {
 				var humanShip = this.findHumanShip(maxProbCoords.x, maxProbCoords.y);
 				if (humanShip.isSunk()) {
-					// add here
-					// var coords = humanShip.getAllShipCells();
-					// console.log(coords);
-					// for (var i = 0; i < coords.length; i++) {
-					// 	if (humanShip.direction === Ship.DIRECTION_VERTICAL){	
-					// 		if (this.checkPos(coords[i].x, coords[i].y + 1)) {
-					// 			this.probGrid[coords[i].x][coords[i].y + 1] = 0;
-					// 		}
-					// 		if (this.checkPos(coords[i].x, coords[i].y - 1)) {
-					// 			this.probGrid[coords[i].x][coords[i].y - 1] = 0;
-					// 		}
-
-					// 	} else {
-					// 		if (this.checkPos(coords[i].x + 1, coords[i].y)) {
-					// 			this.probGrid[coords[i].x + 1][coords[i].y] = 0;
-					// 		}
-					// 		if (this.checkPos(coords[i].x - 1, coords[i].y)) {
-					// 			this.probGrid[coords[i].x - 1][coords[i].y] = 0;
-					// 		}
-					// 	}
-					// }
-					// console.log(this.probGrid);
-					// if (this.direction === Ship.DIRECTION_VERTICAL) {
-					// 	if (this.checkPosition(x - 1, y - 1)) {
-					// 		this.playerGrid.cells[x - 1][y - 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x - 1, y)) {
-					// 		this.playerGrid.cells[x - 1][y] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x - 1, y + 1)) {
-					// 		this.playerGrid.cells[x - 1][y + 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x + this.shipLength, y - 1)) {
-					// 		this.playerGrid.cells[x + this.shipLength][y - 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x + this.shipLength, y)) {
-					// 		this.playerGrid.cells[x + this.shipLength][y] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x + this.shipLength, y + 1)) {
-					// 		this.playerGrid.cells[x + this.shipLength][y + 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-
-					// } else {
-					// 	if (this.checkPosition(x + 1, y - 1)) {
-					// 		this.playerGrid.cells[x + 1][y - 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x - 1, y - 1)) {
-					// 		this.playerGrid.cells[x - 1][y - 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x, y - 1)) {
-					// 		this.playerGrid.cells[x][y - 1] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x + 1, y + this.shipLength)) {
-					// 		this.playerGrid.cells[x + 1][y + this.shipLength] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x - 1, y + this.shipLength)) {
-					// 		this.playerGrid.cells[x - 1][y + this.shipLength] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// 	if (this.checkPosition(x, y + this.shipLength)) {
-					// 		this.playerGrid.cells[x][y + this.shipLength] = CONST.TYPE_NOT_ALLOWED;
-					// 	}
-					// }
+				
 
 					// Remove any ships from the roster that have been sunk
 					var shipTypes = [];

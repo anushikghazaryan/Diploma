@@ -70,7 +70,7 @@ public class UserController {
                 user.setPassword(encodedPassword);
                 Role role = roleRepository.findById(2).get();
                 user.setRole(role);
-                user.setRating(0);
+                user.setRating(100);
                 userRepository.save(user);
 
 
